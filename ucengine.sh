@@ -2,6 +2,8 @@
 cd
 git clone git://github.com/AF83/ucengine.git
 git checkout develop
+echo "branch :"
+git br
 cd ucengine
 make rel
 cd rel/ucengine
