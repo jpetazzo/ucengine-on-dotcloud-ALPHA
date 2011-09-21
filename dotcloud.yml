@@ -3,3 +3,5 @@ erlang:
     buildscript: builder
     ports:
         www: http
+db:
+    type: mongodb

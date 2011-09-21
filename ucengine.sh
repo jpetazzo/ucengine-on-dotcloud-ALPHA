@@ -2,13 +2,22 @@
 cd
 git clone git://github.com/AF83/ucengine.git
 cd ucengine
+git checkout develop
+echo "branch :"
+git branch
 make rel
 cd rel/ucengine
-echo "Please enter the virtual host of this service (without http://):"
-read vhost
-sed -i 's/{port, 5280}/{port, 8080}/' etc/uce.cfg
-sed -i 's/{"localhost",/{"'$vhost'",/' etc/uce.cfg
-bin/ucengine start
+
+#cat /tmp/code/uce.cfg
+
+cp /tmp/code/uce.cfg etc/uce.cfg
+echo "Please enter mongodb's URL (without mongodb://):"
+read mongourl
+echo "Please enter mongodb's port:"
+read mongoport
+sed -i 's/mongodbport/'$mongoport'/' etc/uce.cfg
+sed -i 's/mongodbhost/'$mongourl'/' etc/uce.cfg
+export ERL_LIBS=/home/dotcloud/yaws/lib/yaws/ && bin/ucengine stop && bin/ucengine start
 sleep 3
 bin/ucengine ping
-bin/demo.sh $vhost
+bin/demo.sh localhost
